@@ -181,7 +181,7 @@ cscli machines add MyTestMachine --password MyPassword
 			var dumpFile string
 			var err error
 
-			// create machineID if doesn't specified by user
+			// create machineID if not specified by user
 			if len(args) == 0 {
 				if !autoAdd {
 					err = cmd.Help()
