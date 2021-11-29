@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # sourced by other functional tests
+#shellcheck disable=SC2034
 
 LIB="$(dirname "$(readlink -f "$0")")/lib"
 
@@ -21,7 +22,7 @@ CROWDSEC_PROCESS="crowdsec"
 
 # helpers
 function fail {
-    echo "ACTION FAILED, STOP : $@"
+    echo "ACTION FAILED, STOP : $*"
     caller
     exit 1
 }

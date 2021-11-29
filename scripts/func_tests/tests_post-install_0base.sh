@@ -3,7 +3,8 @@
 
 LIB="$(dirname "$(readlink -f "$0")")/lib"
 
-source tests_base.sh
+# shellcheck source=tests_base.sh
+. tests_base.sh
 
 # called once
 oneTimeSetUp() {
@@ -185,4 +186,5 @@ testAgent_LAPI() {
 
 
 
+# shellcheck source=lib/shunit2
 . "$LIB/shunit2"
