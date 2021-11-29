@@ -1,13 +1,13 @@
 #!/bin/sh
 
-set -eu
+# set -eu
 
 wrap_journalctl() {
     action="$1"
     shift
     case $action in
     start|status|stop|reload|restart|daemon-reload)
-        sudo systemctl --no-pager "$action" "$@"
+        sudo systemctl -q --no-pager "$action" "$@"
         ;;
     *)
         echo "Unkown INIT action: $action"
@@ -37,14 +37,14 @@ wrap_rcd() {
 }
 
 detect_init() {
-    INIT=$(ps -p1 -o command)
-    if echo "$INIT" | grep systemd; then
-        INIT=wrap-journalctl
+    INIT=$(ps -o comm 1 | tail -1)
+    if [ "$INIT" = "systemd" ]; then
+        echo wrap_journalctl
     else
-        INIT=wrap-rcd
+        echo wrap_rcd
     fi
 }
 
 #shellcheck disable=SC2034
-SYSTEMCTL="$INIT"
+SYSTEMCTL=$(detect_init)
 

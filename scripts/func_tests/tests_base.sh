@@ -3,8 +3,10 @@
 
 # sourced by other functional tests
 
+LIB="$(dirname "$(readlink -f "$0")")/lib"
+
 #shellcheck source=lib/wrap-init.sh
-. "$(dirname "$(readlink -f "$0")")/lib/wrap-init.sh"
+. "$LIB/wrap-init.sh"
 
 PACKAGE_PATH="${PACKAGE_PATH:-./crowdsec.deb}"
 
