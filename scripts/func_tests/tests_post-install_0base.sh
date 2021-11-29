@@ -27,7 +27,7 @@ tearDown() {
 }
 
 
-testAgent_LAPI_CAPI() {
+test_systemd() {
     ## status / start / stop
     # service should be up
     pgrep -x crowdsec >/dev/null || fail "crowdsec process should be running"
@@ -39,15 +39,17 @@ testAgent_LAPI_CAPI() {
     pgrep -x crowdsec >/dev/null && fail "crowdsec process shouldn't be running"
 
     ##start it again
-    ${SYSTEMCTL} start crowdsec >/dev/null || fail "failed to stop service"
+    ${SYSTEMCTL} start crowdsec >/dev/null || fail "failed to startservice"
     ${SYSTEMCTL} status crowdsec  >/dev/null || fail "crowdsec should be up"
     wait_for_service "crowdsec process should be running"
 
     ##restart it
-    ${SYSTEMCTL} restart crowdsec >/dev/null || fail "failed to stop service"
+    ${SYSTEMCTL} restart crowdsec >/dev/null || fail "failed to restart service"
     ${SYSTEMCTL} status crowdsec >/dev/null || fail "crowdsec should be up"
     wait_for_service "crowdsec process should be running"
+}
 
+test_Agent_LAPI_CAPI() {
     ## version
     ${CSCLI} version 2>/dev/null || fail "cannot run cscli version"
 
