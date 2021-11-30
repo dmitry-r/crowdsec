@@ -82,16 +82,16 @@ func (a *APIKey) MiddlewareFunc() gin.HandlerFunc {
 			}
 		}
 
-		if bouncer.IPAddress != c.ClientIP() && bouncer.IPAddress != "" {
-			log.Warningf("new IP address detected for bouncer '%s': %s (old: %s)", bouncer.Name, c.ClientIP(), bouncer.IPAddress)
-			err = a.DbClient.UpdateBouncerIP(c.ClientIP(), bouncer.ID)
-			if err != nil {
-				log.Errorf("Failed to update ip address for '%s': %s\n", bouncer.Name, err)
-				c.JSON(http.StatusForbidden, gin.H{"message": "access forbidden"})
-				c.Abort()
-				return
-			}
-		}
+		// if bouncer.IPAddress != c.ClientIP() && bouncer.IPAddress != "" {
+		// 	log.Warningf("new IP address detected for bouncer '%s': %s (old: %s)", bouncer.Name, c.ClientIP(), bouncer.IPAddress)
+		// 	err = a.DbClient.UpdateBouncerIP(c.ClientIP(), bouncer.ID)
+		// 	if err != nil {
+		// 		log.Errorf("Failed to update ip address for '%s': %s\n", bouncer.Name, err)
+		// 		c.JSON(http.StatusForbidden, gin.H{"message": "access forbidden"})
+		// 		c.Abort()
+		// 		return
+		// 	}
+		// }
 
 		useragent := strings.Split(c.Request.UserAgent(), "/")
 
